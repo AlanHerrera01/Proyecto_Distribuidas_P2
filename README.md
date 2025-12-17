@@ -1,6 +1,3 @@
-
-
-
 <div align="center">
    <h2>INFORME DE PROYECTO PARCIAL 2</h2>
    <h1>SISTEMA DE GESTIÓN DE INVENTARIO Y ÓRDENES DE COMPRA</h1>

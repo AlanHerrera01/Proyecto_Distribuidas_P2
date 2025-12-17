@@ -1,0 +1,19 @@
+{
+  "info": {
+    "_postman_id": "producto-service-uuid",
+    "name": "Producto Service API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    { "name": "Obtener todos los productos", "request": { "method": "GET", "url": { "raw": "http://localhost:8083/api/productos", "host": ["localhost"], "port": "8083", "path": ["api", "productos"] } } },
+    { "name": "Obtener producto por ID", "request": { "method": "GET", "url": { "raw": "http://localhost:8083/api/productos/:id", "host": ["localhost"], "port": "8083", "path": ["api", "productos", ":id"] } } },
+    { "name": "Obtener producto por SKU", "request": { "method": "GET", "url": { "raw": "http://localhost:8083/api/productos/sku/:sku", "host": ["localhost"], "port": "8083", "path": ["api", "productos", "sku", ":sku"] } } },
+    { "name": "Obtener productos por categoría", "request": { "method": "GET", "url": { "raw": "http://localhost:8083/api/productos/categoria/:categoria", "host": ["localhost"], "port": "8083", "path": ["api", "productos", "categoria", ":categoria"] } } },
+    { "name": "Obtener productos por estado", "request": { "method": "GET", "url": { "raw": "http://localhost:8083/api/productos/estado/:estado", "host": ["localhost"], "port": "8083", "path": ["api", "productos", "estado", ":estado"] } } },
+    { "name": "Buscar productos por nombre", "request": { "method": "GET", "url": { "raw": "http://localhost:8083/api/productos/buscar?nombre=Producto", "host": ["localhost"], "port": "8083", "path": ["api", "productos", "buscar"], "query": [ { "key": "nombre", "value": "Producto" } ] } } },
+    { "name": "Crear producto", "request": { "method": "POST", "url": { "raw": "http://localhost:8083/api/productos", "host": ["localhost"], "port": "8083", "path": ["api", "productos"] }, "body": { "mode": "raw", "raw": "{ }", "options": { "raw": { "language": "json" } } } } },
+    { "name": "Actualizar producto", "request": { "method": "PUT", "url": { "raw": "http://localhost:8083/api/productos/:id", "host": ["localhost"], "port": "8083", "path": ["api", "productos", ":id"] }, "body": { "mode": "raw", "raw": "{ }", "options": { "raw": { "language": "json" } } } } },
+    { "name": "Cambiar estado de producto", "request": { "method": "PATCH", "url": { "raw": "http://localhost:8083/api/productos/:id/estado?estado=INACTIVO", "host": ["localhost"], "port": "8083", "path": ["api", "productos", ":id", "estado"], "query": [ { "key": "estado", "value": "INACTIVO" } ] } } },
+    { "name": "Eliminar producto", "request": { "method": "DELETE", "url": { "raw": "http://localhost:8083/api/productos/:id", "host": ["localhost"], "port": "8083", "path": ["api", "productos", ":id"] } } }
+  ]
+}

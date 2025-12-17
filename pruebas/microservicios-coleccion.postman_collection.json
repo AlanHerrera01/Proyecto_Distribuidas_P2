@@ -1,0 +1,97 @@
+{
+  "info": {
+    "_postman_id": "d1e1b2c3-4f5a-6789-abcd-ef0123456789",
+    "name": "Microservicios Principal API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Compras Service",
+      "item": [
+        { "name": "Crear OrdenCompra", "request": { "method": "POST", "url": { "raw": "http://localhost:8081/api/ordenes-compra", "host": ["localhost"], "port": "8081", "path": ["api", "ordenes-compra"] }, "body": { "mode": "raw", "raw": "{ }", "options": { "raw": { "language": "json" } } } } },
+        { "name": "Obtener OrdenCompra por ID", "request": { "method": "GET", "url": { "raw": "http://localhost:8081/api/ordenes-compra/:id", "host": ["localhost"], "port": "8081", "path": ["api", "ordenes-compra", ":id"] } } },
+        { "name": "Obtener todas las OrdenesCompra", "request": { "method": "GET", "url": { "raw": "http://localhost:8081/api/ordenes-compra", "host": ["localhost"], "port": "8081", "path": ["api", "ordenes-compra"] } } },
+        { "name": "Actualizar OrdenCompra", "request": { "method": "PUT", "url": { "raw": "http://localhost:8081/api/ordenes-compra/:id", "host": ["localhost"], "port": "8081", "path": ["api", "ordenes-compra", ":id"] }, "body": { "mode": "raw", "raw": "{ }", "options": { "raw": { "language": "json" } } } } },
+        { "name": "Eliminar OrdenCompra", "request": { "method": "DELETE", "url": { "raw": "http://localhost:8081/api/ordenes-compra/:id", "host": ["localhost"], "port": "8081", "path": ["api", "ordenes-compra", ":id"] } } },
+        { "name": "Buscar Ordenes por Estado", "request": { "method": "GET", "url": { "raw": "http://localhost:8081/api/ordenes-compra/estado/:estado", "host": ["localhost"], "port": "8081", "path": ["api", "ordenes-compra", "estado", ":estado"] } } },
+        { "name": "Buscar Ordenes por Proveedor", "request": { "method": "GET", "url": { "raw": "http://localhost:8081/api/ordenes-compra/proveedor/:proveedorId", "host": ["localhost"], "port": "8081", "path": ["api", "ordenes-compra", "proveedor", ":proveedorId"] } } },
+        { "name": "Buscar Ordenes por Rango de Fechas", "request": { "method": "GET", "url": { "raw": "http://localhost:8081/api/ordenes-compra/rango-fechas?fechaInicio=2025-01-01T00:00:00&fechaFin=2025-12-31T23:59:59", "host": ["localhost"], "port": "8081", "path": ["api", "ordenes-compra", "rango-fechas"], "query": [ { "key": "fechaInicio", "value": "2025-01-01T00:00:00" }, { "key": "fechaFin", "value": "2025-12-31T23:59:59" } ] } } },
+        { "name": "Buscar Ordenes por Número de Factura", "request": { "method": "GET", "url": { "raw": "http://localhost:8081/api/ordenes-compra/factura?numeroFactura=123", "host": ["localhost"], "port": "8081", "path": ["api", "ordenes-compra", "factura"], "query": [ { "key": "numeroFactura", "value": "123" } ] } } },
+        { "name": "Cambiar Estado de OrdenCompra", "request": { "method": "PUT", "url": { "raw": "http://localhost:8081/api/ordenes-compra/:id/estado?nuevoEstado=COMPLETADA", "host": ["localhost"], "port": "8081", "path": ["api", "ordenes-compra", ":id", "estado"], "query": [ { "key": "nuevoEstado", "value": "COMPLETADA" } ] } } },
+        { "name": "Obtener Ordenes Pendientes", "request": { "method": "GET", "url": { "raw": "http://localhost:8081/api/ordenes-compra/pendientes", "host": ["localhost"], "port": "8081", "path": ["api", "ordenes-compra", "pendientes"] } } },
+        { "name": "Obtener Ordenes En Proceso", "request": { "method": "GET", "url": { "raw": "http://localhost:8081/api/ordenes-compra/en-proceso", "host": ["localhost"], "port": "8081", "path": ["api", "ordenes-compra", "en-proceso"] } } },
+        { "name": "Obtener Ordenes Completadas", "request": { "method": "GET", "url": { "raw": "http://localhost:8081/api/ordenes-compra/completadas", "host": ["localhost"], "port": "8081", "path": ["api", "ordenes-compra", "completadas"] } } },
+        { "name": "Obtener Ordenes Canceladas", "request": { "method": "GET", "url": { "raw": "http://localhost:8081/api/ordenes-compra/canceladas", "host": ["localhost"], "port": "8081", "path": ["api", "ordenes-compra", "canceladas"] } } },
+        { "name": "Agregar Detalle a OrdenCompra", "request": { "method": "POST", "url": { "raw": "http://localhost:8081/api/ordenes-compra/:id/detalles", "host": ["localhost"], "port": "8081", "path": ["api", "ordenes-compra", ":id", "detalles"] }, "body": { "mode": "raw", "raw": "{ }", "options": { "raw": { "language": "json" } } } } },
+        { "name": "Actualizar Detalle de OrdenCompra", "request": { "method": "PUT", "url": { "raw": "http://localhost:8081/api/ordenes-compra/:id/detalles/:detalleId", "host": ["localhost"], "port": "8081", "path": ["api", "ordenes-compra", ":id", "detalles", ":detalleId"] }, "body": { "mode": "raw", "raw": "{ }", "options": { "raw": { "language": "json" } } } } },
+        { "name": "Eliminar Detalle de OrdenCompra", "request": { "method": "DELETE", "url": { "raw": "http://localhost:8081/api/ordenes-compra/:id/detalles/:detalleId", "host": ["localhost"], "port": "8081", "path": ["api", "ordenes-compra", ":id", "detalles", ":detalleId"] } } },
+        { "name": "Contar Ordenes por Estado", "request": { "method": "GET", "url": { "raw": "http://localhost:8081/api/ordenes-compra/estadisticas/contar-por-estado?estado=COMPLETADA", "host": ["localhost"], "port": "8081", "path": ["api", "ordenes-compra", "estadisticas", "contar-por-estado"], "query": [ { "key": "estado", "value": "COMPLETADA" } ] } } },
+        { "name": "Total Compras por Proveedor", "request": { "method": "GET", "url": { "raw": "http://localhost:8081/api/ordenes-compra/estadisticas/total-por-proveedor/:proveedorId", "host": ["localhost"], "port": "8081", "path": ["api", "ordenes-compra", "estadisticas", "total-por-proveedor", ":proveedorId"] } } },
+        { "name": "Total Compras por Rango de Fechas", "request": { "method": "GET", "url": { "raw": "http://localhost:8081/api/ordenes-compra/estadisticas/total-por-rango-fechas?fechaInicio=2025-01-01T00:00:00&fechaFin=2025-12-31T23:59:59", "host": ["localhost"], "port": "8081", "path": ["api", "ordenes-compra", "estadisticas", "total-por-rango-fechas"], "query": [ { "key": "fechaInicio", "value": "2025-01-01T00:00:00" }, { "key": "fechaFin", "value": "2025-12-31T23:59:59" } ] } } },
+        { "name": "Validar Número de Factura", "request": { "method": "GET", "url": { "raw": "http://localhost:8081/api/ordenes-compra/validar/numero-factura?numeroFactura=123", "host": ["localhost"], "port": "8081", "path": ["api", "ordenes-compra", "validar", "numero-factura"], "query": [ { "key": "numeroFactura", "value": "123" } ] } } },
+        { "name": "Validar Cambio de Estado", "request": { "method": "GET", "url": { "raw": "http://localhost:8081/api/ordenes-compra/:id/validar/cambio-estado?nuevoEstado=COMPLETADA", "host": ["localhost"], "port": "8081", "path": ["api", "ordenes-compra", ":id", "validar", "cambio-estado"], "query": [ { "key": "nuevoEstado", "value": "COMPLETADA" } ] } } },
+        { "name": "Obtener Resumen de Ordenes", "request": { "method": "GET", "url": { "raw": "http://localhost:8081/api/ordenes-compra/resumen", "host": ["localhost"], "port": "8081", "path": ["api", "ordenes-compra", "resumen"] } } }
+      ]
+    },
+    {
+      "name": "Inventario Service",
+      "item": [
+        { "name": "Obtener todos los inventarios", "request": { "method": "GET", "url": { "raw": "http://localhost:8082/api/inventario", "host": ["localhost"], "port": "8082", "path": ["api", "inventario"] } } },
+        { "name": "Obtener inventario por ID", "request": { "method": "GET", "url": { "raw": "http://localhost:8082/api/inventario/:id", "host": ["localhost"], "port": "8082", "path": ["api", "inventario", ":id"] } } },
+        { "name": "Obtener inventario por producto y bodega", "request": { "method": "GET", "url": { "raw": "http://localhost:8082/api/inventario/producto/:productoId/bodega/:bodegaId", "host": ["localhost"], "port": "8082", "path": ["api", "inventario", "producto", ":productoId", "bodega", ":bodegaId"] } } },
+        { "name": "Obtener inventario por bodega", "request": { "method": "GET", "url": { "raw": "http://localhost:8082/api/inventario/bodega/:bodegaId", "host": ["localhost"], "port": "8082", "path": ["api", "inventario", "bodega", ":bodegaId"] } } },
+        { "name": "Obtener inventario por producto", "request": { "method": "GET", "url": { "raw": "http://localhost:8082/api/inventario/producto/:productoId", "host": ["localhost"], "port": "8082", "path": ["api", "inventario", "producto", ":productoId"] } } },
+        { "name": "Obtener stock crítico", "request": { "method": "GET", "url": { "raw": "http://localhost:8082/api/inventario/stock-critico", "host": ["localhost"], "port": "8082", "path": ["api", "inventario", "stock-critico"] } } },
+        { "name": "Obtener stock crítico por bodega", "request": { "method": "GET", "url": { "raw": "http://localhost:8082/api/inventario/stock-critico/bodega/:bodegaId", "host": ["localhost"], "port": "8082", "path": ["api", "inventario", "stock-critico", "bodega", ":bodegaId"] } } },
+        { "name": "Crear inventario", "request": { "method": "POST", "url": { "raw": "http://localhost:8082/api/inventario", "host": ["localhost"], "port": "8082", "path": ["api", "inventario"] }, "body": { "mode": "raw", "raw": "{ }", "options": { "raw": { "language": "json" } } } } },
+        { "name": "Actualizar inventario", "request": { "method": "PUT", "url": { "raw": "http://localhost:8082/api/inventario/:id", "host": ["localhost"], "port": "8082", "path": ["api", "inventario", ":id"] }, "body": { "mode": "raw", "raw": "{ }", "options": { "raw": { "language": "json" } } } } },
+        { "name": "Actualizar stock de inventario", "request": { "method": "PATCH", "url": { "raw": "http://localhost:8082/api/inventario/producto/:productoId/bodega/:bodegaId/actualizar-stock?nuevaCantidad=100", "host": ["localhost"], "port": "8082", "path": ["api", "inventario", "producto", ":productoId", "bodega", ":bodegaId", "actualizar-stock"], "query": [ { "key": "nuevaCantidad", "value": "100" } ] } } },
+        { "name": "Agregar stock a inventario", "request": { "method": "PATCH", "url": { "raw": "http://localhost:8082/api/inventario/producto/:productoId/bodega/:bodegaId/agregar-stock?cantidad=10", "host": ["localhost"], "port": "8082", "path": ["api", "inventario", "producto", ":productoId", "bodega", ":bodegaId", "agregar-stock"], "query": [ { "key": "cantidad", "value": "10" } ] } } },
+        { "name": "Reducir stock de inventario", "request": { "method": "PATCH", "url": { "raw": "http://localhost:8082/api/inventario/producto/:productoId/bodega/:bodegaId/reducir-stock?cantidad=5", "host": ["localhost"], "port": "8082", "path": ["api", "inventario", "producto", ":productoId", "bodega", ":bodegaId", "reducir-stock"], "query": [ { "key": "cantidad", "value": "5" } ] } } },
+        { "name": "Eliminar inventario", "request": { "method": "DELETE", "url": { "raw": "http://localhost:8082/api/inventario/:id", "host": ["localhost"], "port": "8082", "path": ["api", "inventario", ":id"] } } }
+      ]
+    },
+    {
+      "name": "Bodega Service",
+      "item": [
+        { "name": "Obtener todas las bodegas", "request": { "method": "GET", "url": { "raw": "http://localhost:8082/api/bodegas", "host": ["localhost"], "port": "8082", "path": ["api", "bodegas"] } } },
+        { "name": "Obtener bodega por ID", "request": { "method": "GET", "url": { "raw": "http://localhost:8082/api/bodegas/:id", "host": ["localhost"], "port": "8082", "path": ["api", "bodegas", ":id"] } } },
+        { "name": "Obtener bodegas por estado", "request": { "method": "GET", "url": { "raw": "http://localhost:8082/api/bodegas/estado/:estado", "host": ["localhost"], "port": "8082", "path": ["api", "bodegas", "estado", ":estado"] } } },
+        { "name": "Buscar bodegas por nombre", "request": { "method": "GET", "url": { "raw": "http://localhost:8082/api/bodegas/buscar?nombre=Central", "host": ["localhost"], "port": "8082", "path": ["api", "bodegas", "buscar"], "query": [ { "key": "nombre", "value": "Central" } ] } } },
+        { "name": "Crear bodega", "request": { "method": "POST", "url": { "raw": "http://localhost:8082/api/bodegas", "host": ["localhost"], "port": "8082", "path": ["api", "bodegas"] }, "body": { "mode": "raw", "raw": "{ }", "options": { "raw": { "language": "json" } } } } },
+        { "name": "Actualizar bodega", "request": { "method": "PUT", "url": { "raw": "http://localhost:8082/api/bodegas/:id", "host": ["localhost"], "port": "8082", "path": ["api", "bodegas", ":id"] }, "body": { "mode": "raw", "raw": "{ }", "options": { "raw": { "language": "json" } } } } },
+        { "name": "Cambiar estado de bodega", "request": { "method": "PATCH", "url": { "raw": "http://localhost:8082/api/bodegas/:id/estado?estado=INACTIVA", "host": ["localhost"], "port": "8082", "path": ["api", "bodegas", ":id", "estado"], "query": [ { "key": "estado", "value": "INACTIVA" } ] } } },
+        { "name": "Eliminar bodega", "request": { "method": "DELETE", "url": { "raw": "http://localhost:8082/api/bodegas/:id", "host": ["localhost"], "port": "8082", "path": ["api", "bodegas", ":id"] } } }
+      ]
+    },
+    {
+      "name": "Producto Service",
+      "item": [
+        { "name": "Obtener todos los productos", "request": { "method": "GET", "url": { "raw": "http://localhost:8083/api/productos", "host": ["localhost"], "port": "8083", "path": ["api", "productos"] } } },
+        { "name": "Obtener producto por ID", "request": { "method": "GET", "url": { "raw": "http://localhost:8083/api/productos/:id", "host": ["localhost"], "port": "8083", "path": ["api", "productos", ":id"] } } },
+        { "name": "Obtener producto por SKU", "request": { "method": "GET", "url": { "raw": "http://localhost:8083/api/productos/sku/:sku", "host": ["localhost"], "port": "8083", "path": ["api", "productos", "sku", ":sku"] } } },
+        { "name": "Obtener productos por categoría", "request": { "method": "GET", "url": { "raw": "http://localhost:8083/api/productos/categoria/:categoria", "host": ["localhost"], "port": "8083", "path": ["api", "productos", "categoria", ":categoria"] } } },
+        { "name": "Obtener productos por estado", "request": { "method": "GET", "url": { "raw": "http://localhost:8083/api/productos/estado/:estado", "host": ["localhost"], "port": "8083", "path": ["api", "productos", "estado", ":estado"] } } },
+        { "name": "Buscar productos por nombre", "request": { "method": "GET", "url": { "raw": "http://localhost:8083/api/productos/buscar?nombre=Producto", "host": ["localhost"], "port": "8083", "path": ["api", "productos", "buscar"], "query": [ { "key": "nombre", "value": "Producto" } ] } } },
+        { "name": "Crear producto", "request": { "method": "POST", "url": { "raw": "http://localhost:8083/api/productos", "host": ["localhost"], "port": "8083", "path": ["api", "productos"] }, "body": { "mode": "raw", "raw": "{ }", "options": { "raw": { "language": "json" } } } } },
+        { "name": "Actualizar producto", "request": { "method": "PUT", "url": { "raw": "http://localhost:8083/api/productos/:id", "host": ["localhost"], "port": "8083", "path": ["api", "productos", ":id"] }, "body": { "mode": "raw", "raw": "{ }", "options": { "raw": { "language": "json" } } } } },
+        { "name": "Cambiar estado de producto", "request": { "method": "PATCH", "url": { "raw": "http://localhost:8083/api/productos/:id/estado?estado=INACTIVO", "host": ["localhost"], "port": "8083", "path": ["api", "productos", ":id", "estado"], "query": [ { "key": "estado", "value": "INACTIVO" } ] } } },
+        { "name": "Eliminar producto", "request": { "method": "DELETE", "url": { "raw": "http://localhost:8083/api/productos/:id", "host": ["localhost"], "port": "8083", "path": ["api", "productos", ":id"] } } }
+      ]
+    },
+    {
+      "name": "Proveedor Service",
+      "item": [
+        { "name": "Obtener todos los proveedores", "request": { "method": "GET", "url": { "raw": "http://localhost:8084/api/proveedores", "host": ["localhost"], "port": "8084", "path": ["api", "proveedores"] } } },
+        { "name": "Obtener proveedor por ID", "request": { "method": "GET", "url": { "raw": "http://localhost:8084/api/proveedores/:id", "host": ["localhost"], "port": "8084", "path": ["api", "proveedores", ":id"] } } },
+        { "name": "Obtener proveedor por NIT/RUC", "request": { "method": "GET", "url": { "raw": "http://localhost:8084/api/proveedores/nit/:nitRuc", "host": ["localhost"], "port": "8084", "path": ["api", "proveedores", "nit", ":nitRuc"] } } },
+        { "name": "Obtener proveedores por estado", "request": { "method": "GET", "url": { "raw": "http://localhost:8084/api/proveedores/estado/:estado", "host": ["localhost"], "port": "8084", "path": ["api", "proveedores", "estado", ":estado"] } } },
+        { "name": "Buscar proveedores por nombre", "request": { "method": "GET", "url": { "raw": "http://localhost:8084/api/proveedores/buscar?nombre=Proveedor", "host": ["localhost"], "port": "8084", "path": ["api", "proveedores", "buscar"], "query": [ { "key": "nombre", "value": "Proveedor" } ] } } },
+        { "name": "Crear proveedor", "request": { "method": "POST", "url": { "raw": "http://localhost:8084/api/proveedores", "host": ["localhost"], "port": "8084", "path": ["api", "proveedores"] }, "body": { "mode": "raw", "raw": "{ }", "options": { "raw": { "language": "json" } } } } },
+        { "name": "Actualizar proveedor", "request": { "method": "PUT", "url": { "raw": "http://localhost:8084/api/proveedores/:id", "host": ["localhost"], "port": "8084", "path": ["api", "proveedores", ":id"] }, "body": { "mode": "raw", "raw": "{ }", "options": { "raw": { "language": "json" } } } } },
+        { "name": "Cambiar estado de proveedor", "request": { "method": "PATCH", "url": { "raw": "http://localhost:8084/api/proveedores/:id/estado?estado=INACTIVO", "host": ["localhost"], "port": "8084", "path": ["api", "proveedores", ":id", "estado"], "query": [ { "key": "estado", "value": "INACTIVO" } ] } } },
+        { "name": "Eliminar proveedor", "request": { "method": "DELETE", "url": { "raw": "http://localhost:8084/api/proveedores/:id", "host": ["localhost"], "port": "8084", "path": ["api", "proveedores", ":id"] } } }
+      ]
+    }
+  ]
+}

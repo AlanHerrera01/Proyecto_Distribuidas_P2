@@ -1,0 +1,40 @@
+{
+  "info": {
+    "_postman_id": "inventario-service-uuid",
+    "name": "Inventario Service API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Inventario",
+      "item": [
+        { "name": "Obtener todos los inventarios", "request": { "method": "GET", "url": { "raw": "http://localhost:8082/api/inventario", "host": ["localhost"], "port": "8082", "path": ["api", "inventario"] } } },
+        { "name": "Obtener inventario por ID", "request": { "method": "GET", "url": { "raw": "http://localhost:8082/api/inventario/:id", "host": ["localhost"], "port": "8082", "path": ["api", "inventario", ":id"] } } },
+        { "name": "Obtener inventario por producto y bodega", "request": { "method": "GET", "url": { "raw": "http://localhost:8082/api/inventario/producto/:productoId/bodega/:bodegaId", "host": ["localhost"], "port": "8082", "path": ["api", "inventario", "producto", ":productoId", "bodega", ":bodegaId"] } } },
+        { "name": "Obtener inventario por bodega", "request": { "method": "GET", "url": { "raw": "http://localhost:8082/api/inventario/bodega/:bodegaId", "host": ["localhost"], "port": "8082", "path": ["api", "inventario", "bodega", ":bodegaId"] } } },
+        { "name": "Obtener inventario por producto", "request": { "method": "GET", "url": { "raw": "http://localhost:8082/api/inventario/producto/:productoId", "host": ["localhost"], "port": "8082", "path": ["api", "inventario", "producto", ":productoId"] } } },
+        { "name": "Obtener stock crítico", "request": { "method": "GET", "url": { "raw": "http://localhost:8082/api/inventario/stock-critico", "host": ["localhost"], "port": "8082", "path": ["api", "inventario", "stock-critico"] } } },
+        { "name": "Obtener stock crítico por bodega", "request": { "method": "GET", "url": { "raw": "http://localhost:8082/api/inventario/stock-critico/bodega/:bodegaId", "host": ["localhost"], "port": "8082", "path": ["api", "inventario", "stock-critico", "bodega", ":bodegaId"] } } },
+        { "name": "Crear inventario", "request": { "method": "POST", "url": { "raw": "http://localhost:8082/api/inventario", "host": ["localhost"], "port": "8082", "path": ["api", "inventario"] }, "body": { "mode": "raw", "raw": "{ }", "options": { "raw": { "language": "json" } } } } },
+        { "name": "Actualizar inventario", "request": { "method": "PUT", "url": { "raw": "http://localhost:8082/api/inventario/:id", "host": ["localhost"], "port": "8082", "path": ["api", "inventario", ":id"] }, "body": { "mode": "raw", "raw": "{ }", "options": { "raw": { "language": "json" } } } } },
+        { "name": "Actualizar stock de inventario", "request": { "method": "PATCH", "url": { "raw": "http://localhost:8082/api/inventario/producto/:productoId/bodega/:bodegaId/actualizar-stock?nuevaCantidad=100", "host": ["localhost"], "port": "8082", "path": ["api", "inventario", "producto", ":productoId", "bodega", ":bodegaId", "actualizar-stock"], "query": [ { "key": "nuevaCantidad", "value": "100" } ] } } },
+        { "name": "Agregar stock a inventario", "request": { "method": "PATCH", "url": { "raw": "http://localhost:8082/api/inventario/producto/:productoId/bodega/:bodegaId/agregar-stock?cantidad=10", "host": ["localhost"], "port": "8082", "path": ["api", "inventario", "producto", ":productoId", "bodega", ":bodegaId", "agregar-stock"], "query": [ { "key": "cantidad", "value": "10" } ] } } },
+        { "name": "Reducir stock de inventario", "request": { "method": "PATCH", "url": { "raw": "http://localhost:8082/api/inventario/producto/:productoId/bodega/:bodegaId/reducir-stock?cantidad=5", "host": ["localhost"], "port": "8082", "path": ["api", "inventario", "producto", ":productoId", "bodega", ":bodegaId", "reducir-stock"], "query": [ { "key": "cantidad", "value": "5" } ] } } },
+        { "name": "Eliminar inventario", "request": { "method": "DELETE", "url": { "raw": "http://localhost:8082/api/inventario/:id", "host": ["localhost"], "port": "8082", "path": ["api", "inventario", ":id"] } } }
+      ]
+    },
+    {
+      "name": "Bodega",
+      "item": [
+        { "name": "Obtener todas las bodegas", "request": { "method": "GET", "url": { "raw": "http://localhost:8082/api/bodegas", "host": ["localhost"], "port": "8082", "path": ["api", "bodegas"] } } },
+        { "name": "Obtener bodega por ID", "request": { "method": "GET", "url": { "raw": "http://localhost:8082/api/bodegas/:id", "host": ["localhost"], "port": "8082", "path": ["api", "bodegas", ":id"] } } },
+        { "name": "Obtener bodegas por estado", "request": { "method": "GET", "url": { "raw": "http://localhost:8082/api/bodegas/estado/:estado", "host": ["localhost"], "port": "8082", "path": ["api", "bodegas", "estado", ":estado"] } } },
+        { "name": "Buscar bodegas por nombre", "request": { "method": "GET", "url": { "raw": "http://localhost:8082/api/bodegas/buscar?nombre=Central", "host": ["localhost"], "port": "8082", "path": ["api", "bodegas", "buscar"], "query": [ { "key": "nombre", "value": "Central" } ] } } },
+        { "name": "Crear bodega", "request": { "method": "POST", "url": { "raw": "http://localhost:8082/api/bodegas", "host": ["localhost"], "port": "8082", "path": ["api", "bodegas"] }, "body": { "mode": "raw", "raw": "{ }", "options": { "raw": { "language": "json" } } } } },
+        { "name": "Actualizar bodega", "request": { "method": "PUT", "url": { "raw": "http://localhost:8082/api/bodegas/:id", "host": ["localhost"], "port": "8082", "path": ["api", "bodegas", ":id"] }, "body": { "mode": "raw", "raw": "{ }", "options": { "raw": { "language": "json" } } } } },
+        { "name": "Cambiar estado de bodega", "request": { "method": "PATCH", "url": { "raw": "http://localhost:8082/api/bodegas/:id/estado?estado=INACTIVA", "host": ["localhost"], "port": "8082", "path": ["api", "bodegas", ":id", "estado"], "query": [ { "key": "estado", "value": "INACTIVA" } ] } } },
+        { "name": "Eliminar bodega", "request": { "method": "DELETE", "url": { "raw": "http://localhost:8082/api/bodegas/:id", "host": ["localhost"], "port": "8082", "path": ["api", "bodegas", ":id"] } } }
+      ]
+    }
+  ]
+}
