@@ -1,0 +1,8 @@
+com\espe\producto\services\ProductoServiceImpl.class
+com\espe\producto\controllers\ProductoController.class
+com\espe\producto\exceptions\ValidationExceptionHandler.class
+com\espe\producto\models\Producto.class
+com\espe\producto\repositories\ProductoRepository.class
+com\espe\producto\services\ProductoService.class
+com\espe\producto\exceptions\ErrorResponse.class
+com\espe\producto\ProductoServiceApplication.class
