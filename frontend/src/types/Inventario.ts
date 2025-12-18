@@ -1,12 +1,4 @@
-export interface Bodega {
-  id?: number;
-  nombre: string;
-  direccion: string;
-  capacidad: number;
-  estado: 'ACTIVO' | 'INACTIVO';
-  fechaCreacion?: string;
-  fechaActualizacion?: string;
-}
+import { Bodega } from './Bodega';
 
 export interface Inventario {
   id?: number;

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { OrdenCompra, DetalleOrden, EstadoOrden } from '../types';
 
-const API_BASE_URL = 'http://localhost:8084/api/ordenes-compra';
+const API_BASE_URL = `${process.env.REACT_APP_ORDENES_API_URL || 'http://localhost:8081/api'}/ordenes-compra`;
 
 export const ordenCompraService = {
   // === SERVICIOS DE ÓRDENES DE COMPRA ===

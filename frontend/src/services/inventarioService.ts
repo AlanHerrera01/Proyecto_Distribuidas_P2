@@ -1,15 +1,17 @@
 import axios from 'axios';
 import { Inventario, Bodega } from '../types';
 
-const INVENTARIO_API_URL = 'http://localhost:8083/api/inventario';
-const BODEGA_API_URL = 'http://localhost:8083/api/bodegas';
+const INVENTARIO_API_URL = `${process.env.REACT_APP_INVENTARIO_API_URL || 'http://localhost:8082/api'}/inventario`;
+const BODEGA_API_URL = `${process.env.REACT_APP_BODEGAS_API_URL || 'http://localhost:8085/api'}/bodegas`;
 
 export const inventarioService = {
   // === SERVICIOS DE INVENTARIO ===
   
   // Obtener todo el inventario
   getAll: async (): Promise<Inventario[]> => {
+    console.log('Obteniendo inventarios desde:', INVENTARIO_API_URL);
     const response = await axios.get(`${INVENTARIO_API_URL}`);
+    console.log('Datos de inventario recibidos:', response.data);
     return response.data;
   },
 
@@ -62,11 +64,21 @@ export const inventarioService = {
     return response.data;
   },
 
+  // Reducir stock de inventario
+  reducirStock: async (productoId: number, bodegaId: number, cantidad: number): Promise<Inventario> => {
+    const response = await axios.patch(`${INVENTARIO_API_URL}/producto/${productoId}/bodega/${bodegaId}/reducir-stock`, null, {
+      params: { cantidad }
+    });
+    return response.data;
+  },
+
   // === SERVICIOS DE BODEGAS ===
 
   // Obtener todas las bodegas
   getAllBodegas: async (): Promise<Bodega[]> => {
+    console.log('Obteniendo bodegas desde:', BODEGA_API_URL);
     const response = await axios.get(`${BODEGA_API_URL}`);
+    console.log('Datos de bodegas recibidos:', response.data);
     return response.data;
   },
 

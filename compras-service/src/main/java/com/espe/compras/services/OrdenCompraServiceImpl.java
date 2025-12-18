@@ -45,6 +45,13 @@ public class OrdenCompraServiceImpl implements OrdenCompraService {
             ordenCompra.setEstado(EstadoOrden.PENDIENTE);
         }
         
+        // Establecer la relación bidireccional con los detalles
+        if (ordenCompra.getDetalles() != null && !ordenCompra.getDetalles().isEmpty()) {
+            for (DetalleOrden detalle : ordenCompra.getDetalles()) {
+                detalle.setOrdenCompra(ordenCompra);
+            }
+        }
+        
         // Calcular totales
         ordenCompra.actualizarTotales();
         
@@ -168,7 +175,7 @@ public class OrdenCompraServiceImpl implements OrdenCompraService {
 
     @Override
     public DetalleOrden agregarDetalleOrden(Long ordenId, DetalleOrden detalle) {
-        OrdenCompra orden = obtenerOrdenCompraPorId(id);
+        OrdenCompra orden = obtenerOrdenCompraPorId(ordenId);
         
         // Validar que la orden esté en estado PENDIENTE
         if (orden.getEstado() != EstadoOrden.PENDIENTE) {
@@ -190,7 +197,7 @@ public class OrdenCompraServiceImpl implements OrdenCompraService {
 
     @Override
     public DetalleOrden actualizarDetalleOrden(Long ordenId, Long detalleId, DetalleOrden detalle) {
-        OrdenCompra orden = obtenerOrdenCompraPorId(id);
+        OrdenCompra orden = obtenerOrdenCompraPorId(ordenId);
         
         // Validar que la orden esté en estado PENDIENTE
         if (orden.getEstado() != EstadoOrden.PENDIENTE) {
@@ -223,7 +230,7 @@ public class OrdenCompraServiceImpl implements OrdenCompraService {
 
     @Override
     public void eliminarDetalleOrden(Long ordenId, Long detalleId) {
-        OrdenCompra orden = obtenerOrdenCompraPorId(id);
+        OrdenCompra orden = obtenerOrdenCompraPorId(ordenId);
         
         // Validar que la orden esté en estado PENDIENTE
         if (orden.getEstado() != EstadoOrden.PENDIENTE) {
@@ -278,7 +285,7 @@ public class OrdenCompraServiceImpl implements OrdenCompraService {
     @Override
     @Transactional(readOnly = true)
     public boolean puedeCambiarEstado(Long ordenId, EstadoOrden nuevoEstado) {
-        OrdenCompra orden = obtenerOrdenCompraPorId(id);
+        OrdenCompra orden = obtenerOrdenCompraPorId(ordenId);
         EstadoOrden estadoActual = orden.getEstado();
         
         // Reglas de transición de estados

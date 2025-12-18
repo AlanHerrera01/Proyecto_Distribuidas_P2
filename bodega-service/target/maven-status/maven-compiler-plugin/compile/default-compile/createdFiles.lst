@@ -1,0 +1,8 @@
+com\espe\bodega\controllers\BodegaController.class
+com\espe\bodega\repositories\BodegaRepository.class
+com\espe\bodega\BodegaServiceApplication.class
+com\espe\bodega\clients\BodegaClientRest.class
+com\espe\bodega\models\Bodega.class
+com\espe\bodega\services\BodegaService.class
+com\espe\bodega\services\BodegaServiceImpl.class
+com\espe\bodega\dto\BodegaDTO.class

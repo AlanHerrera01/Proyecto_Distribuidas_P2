@@ -1,5 +1,6 @@
 package com.espe.compras.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.math.BigDecimal;
@@ -14,6 +15,7 @@ public class DetalleOrden {
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "orden_compra_id", nullable = false)
+    @JsonBackReference
     private OrdenCompra ordenCompra;
     
     @NotNull(message = "El ID del producto es obligatorio")

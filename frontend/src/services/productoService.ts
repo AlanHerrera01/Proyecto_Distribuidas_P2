@@ -1,12 +1,14 @@
 import axios from 'axios';
 import { Producto } from '../types';
 
-const API_BASE_URL = 'http://localhost:8081/api/productos';
+const API_BASE_URL = `${process.env.REACT_APP_PRODUCTOS_API_URL || 'http://localhost:8083/api'}/productos`;
 
 export const productoService = {
   // Obtener todos los productos
   getAll: async (): Promise<Producto[]> => {
+    console.log('Obteniendo productos desde:', API_BASE_URL);
     const response = await axios.get(`${API_BASE_URL}`);
+    console.log('Datos de productos recibidos:', response.data);
     return response.data;
   },
 

@@ -11,6 +11,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Positive;
 import java.time.LocalDateTime;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Inventario {
@@ -42,6 +43,7 @@ public class Inventario {
     
     @ManyToOne
     @JoinColumn(name = "bodega_id", insertable = false, updatable = false)
+    @JsonIgnoreProperties({"inventarios"})
     private Bodega bodega;
     
     // Constructores

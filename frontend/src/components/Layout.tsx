@@ -21,6 +21,7 @@ import {
   Inventory,
   Business,
   Warehouse,
+  Store,
   ShoppingCart,
 } from '@mui/icons-material';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -35,13 +36,12 @@ const menuItems = [
   { text: 'Dashboard', icon: <Dashboard />, path: '/' },
   { text: 'Productos', icon: <Inventory />, path: '/productos' },
   { text: 'Proveedores', icon: <Business />, path: '/proveedores' },
+  { text: 'Bodegas', icon: <Store />, path: '/bodegas' },
   { text: 'Inventario', icon: <Warehouse />, path: '/inventario' },
   { text: 'Órdenes de Compra', icon: <ShoppingCart />, path: '/ordenes-compra' },
 ];
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [mobileOpen, setMobileOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();

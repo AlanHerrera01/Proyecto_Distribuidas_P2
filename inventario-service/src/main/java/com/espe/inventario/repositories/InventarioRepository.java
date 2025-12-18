@@ -28,4 +28,8 @@ public interface InventarioRepository extends JpaRepository<Inventario, Long> {
     List<Inventario> findStockCriticoByProducto(@Param("productoId") Long productoId);
     
     boolean existsByProductoIdAndBodegaId(Long productoId, Long bodegaId);
+    
+    // Query simplificada para obtener inventarios básicos
+    @Query("SELECT i FROM Inventario i")
+    List<Inventario> findAllInventariosBasicos();
 }

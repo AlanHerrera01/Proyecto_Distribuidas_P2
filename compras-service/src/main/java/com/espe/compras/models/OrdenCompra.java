@@ -1,5 +1,6 @@
 package com.espe.compras.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.math.BigDecimal;
@@ -60,6 +61,7 @@ public class OrdenCompra {
     private LocalDateTime fechaActualizacion;
     
     @OneToMany(mappedBy = "ordenCompra", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<DetalleOrden> detalles = new ArrayList<>();
     
     // Constructores
@@ -189,7 +191,7 @@ public class OrdenCompra {
         actualizarTotales();
     }
     
-    private void actualizarTotales() {
+    public void actualizarTotales() {
         this.subtotal = detalles.stream()
             .map(detalle -> detalle.getPrecioUnitario().multiply(BigDecimal.valueOf(detalle.getCantidad())))
             .reduce(BigDecimal.ZERO, BigDecimal::add);

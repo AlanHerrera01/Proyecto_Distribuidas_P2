@@ -13,6 +13,7 @@ import jakarta.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Bodega {
@@ -48,6 +49,7 @@ public class Bodega {
     private LocalDateTime fechaActualizacion;
     
     @OneToMany(mappedBy = "bodega")
+    @JsonIgnoreProperties({"bodega"})
     private List<Inventario> inventarios = new ArrayList<>();
     
     // Constructores

@@ -7,6 +7,7 @@ export interface Proveedor {
   telefono: string;
   direccion: string;
   estado: 'ACTIVO' | 'INACTIVO';
+  observaciones?: string;
   fechaCreacion?: string;
   fechaActualizacion?: string;
 }

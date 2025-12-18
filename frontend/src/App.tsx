@@ -10,6 +10,7 @@ import Layout from './components/Layout';
 const DashboardPage = lazy(() => import('./pages/DashboardPage'));
 const ProductosPage = lazy(() => import('./pages/ProductosPage'));
 const ProveedoresPage = lazy(() => import('./pages/ProveedoresPage'));
+const BodegasPage = lazy(() => import('./pages/BodegasPage'));
 const InventarioPage = lazy(() => import('./pages/InventarioPage'));
 const OrdenesCompraPage = lazy(() => import('./pages/OrdenesCompraPage'));
 
@@ -53,6 +54,7 @@ function App() {
                 <Route path="/" element={<DashboardPage />} />
                 <Route path="/productos" element={<ProductosPage />} />
                 <Route path="/proveedores" element={<ProveedoresPage />} />
+                <Route path="/bodegas" element={<BodegasPage />} />
                 <Route path="/inventario" element={<InventarioPage />} />
                 <Route path="/ordenes-compra" element={<OrdenesCompraPage />} />
               </Routes>

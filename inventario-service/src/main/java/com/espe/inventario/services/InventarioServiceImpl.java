@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.ArrayList;
 
 @Service
 @Transactional
@@ -26,7 +27,11 @@ public class InventarioServiceImpl implements InventarioService {
     @Override
     @Transactional(readOnly = true)
     public List<Inventario> findAllInventarios() {
-        return inventarioRepository.findAll();
+        // Obtener inventarios básicos sin joins complejos
+        List<Inventario> inventarios = inventarioRepository.findAllInventariosBasicos();
+        
+        // Por ahora, los nombres se manejarán en el frontend
+        return inventarios;
     }
     
     @Override
@@ -67,6 +72,14 @@ public class InventarioServiceImpl implements InventarioService {
     
     @Override
     public Inventario saveInventario(Inventario inventario) {
+        // Verificar si ya existe un registro con el mismo producto y bodega
+        Optional<Inventario> existente = inventarioRepository.findByProductoIdAndBodegaId(
+            inventario.getProductoId(), inventario.getBodegaId());
+        
+        if (existente.isPresent()) {
+            throw new RuntimeException("Ya existe un registro de inventario para este producto en esta bodega");
+        }
+        
         inventario.setUltimaActualizacion(LocalDateTime.now());
         return inventarioRepository.save(inventario);
     }

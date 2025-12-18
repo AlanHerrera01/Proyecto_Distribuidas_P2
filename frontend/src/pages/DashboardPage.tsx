@@ -10,6 +10,18 @@ import {
   ListItemText,
   Chip,
   CircularProgress,
+  Grid,
+  Avatar,
+  LinearProgress,
+  Fade,
+  Container,
+  Button,
+  IconButton,
+  Tooltip,
+  Skeleton,
+  Divider,
+  useTheme,
+  alpha,
 } from '@mui/material';
 import {
   Inventory,
@@ -18,7 +30,42 @@ import {
   ShoppingCart,
   TrendingUp,
   Warning,
+  Assessment,
+  Timeline,
+  LocalShipping,
+  Store,
+  AttachMoney,
+  Add,
+  Refresh,
+  ArrowUpward,
+  ArrowDownward,
+  Visibility,
+  NotificationsActive,
+  Speed,
+  PieChart,
+  BarChart,
+  Dashboard,
+  LightMode,
+  DarkMode,
 } from '@mui/icons-material';
+import { motion } from 'framer-motion';
+import {
+  BarChart as RechartsBarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip as RechartsTooltip,
+  ResponsiveContainer,
+  PieChart as RechartsPieChart,
+  Pie,
+  Cell,
+  LineChart,
+  Line,
+  Area,
+  AreaChart,
+} from 'recharts';
+import { useNavigate } from 'react-router-dom';
 import { productoService, proveedorService, inventarioService, ordenCompraService } from '../services';
 
 interface DashboardStats {
@@ -28,9 +75,39 @@ interface DashboardStats {
   totalOrdenes: number;
   stockCritico: number;
   ordenesPendientes: number;
+  productosActivos: number;
+  proveedoresActivos: number;
+  bodegasActivas: number;
+}
+
+interface ChartData {
+  name: string;
+  value: number;
+  color: string;
+  growth?: number;
+}
+
+interface ActivityItem {
+  id: string;
+  type: 'producto' | 'proveedor' | 'orden' | 'inventario';
+  title: string;
+  description: string;
+  timestamp: Date;
+  status: 'success' | 'warning' | 'error' | 'info';
+}
+
+interface QuickAction {
+  title: string;
+  description: string;
+  icon: string;
+  color: string;
+  path: string;
 }
 
 const DashboardPage: React.FC = () => {
+  const theme = useTheme();
+  const navigate = useNavigate();
+  const [darkMode, setDarkMode] = useState(false);
   const [stats, setStats] = useState<DashboardStats>({
     totalProductos: 0,
     totalProveedores: 0,
@@ -38,35 +115,175 @@ const DashboardPage: React.FC = () => {
     totalOrdenes: 0,
     stockCritico: 0,
     ordenesPendientes: 0,
+    productosActivos: 0,
+    proveedoresActivos: 0,
+    bodegasActivas: 0,
   });
   const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
+  const [autoRefresh, setAutoRefresh] = useState(true);
+  const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
+  const [animatedStats, setAnimatedStats] = useState({
+    totalProductos: 0,
+    totalProveedores: 0,
+    totalBodegas: 0,
+    totalOrdenes: 0,
+  });
+  const [recentActivity, setRecentActivity] = useState<ActivityItem[]>([]);
+  const [chartData, setChartData] = useState<ChartData[]>([]);
 
-  const statCards = [
+  const updateChartData = () => {
+    setChartData([
+      { name: 'Productos', value: stats.totalProductos, color: '#1976d2', growth: 12 },
+      { name: 'Proveedores', value: stats.totalProveedores, color: '#2e7d32', growth: 8 },
+      { name: 'Bodegas', value: stats.totalBodegas, color: '#ed6c02', growth: 5 },
+      { name: 'Órdenes', value: stats.totalOrdenes, color: '#9c27b0', growth: 15 },
+    ]);
+  };
+
+  const performanceData = [
+    { month: 'Ene', productos: 65, proveedores: 28, ordenes: 45 },
+    { month: 'Feb', productos: 78, proveedores: 35, ordenes: 52 },
+    { month: 'Mar', productos: 92, proveedores: 42, ordenes: 61 },
+    { month: 'Abr', productos: 88, proveedores: 38, ordenes: 58 },
+    { month: 'May', productos: 95, proveedores: 45, ordenes: 67 },
+    { month: 'Jun', productos: stats.totalProductos, proveedores: stats.totalProveedores, ordenes: stats.totalOrdenes },
+  ];
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setAnimatedStats({
+        totalProductos: stats.totalProductos,
+        totalProveedores: stats.totalProveedores,
+        totalBodegas: stats.totalBodegas,
+        totalOrdenes: stats.totalOrdenes,
+      });
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [stats]);
+
+  const handleQuickAction = (path: string) => {
+    navigate(path);
+  };
+
+  const generateRecentActivity = (): ActivityItem[] => {
+    const activities: ActivityItem[] = [];
+    
+    if (stats.ordenesPendientes > 0) {
+      activities.push({
+        id: '1',
+        type: 'orden',
+        title: 'Nueva orden pendiente',
+        description: `${stats.ordenesPendientes} órdenes esperando procesamiento`,
+        timestamp: new Date(Date.now() - 1000 * 60 * 30),
+        status: 'warning'
+      });
+    }
+    
+    if (stats.stockCritico > 0) {
+      activities.push({
+        id: '2',
+        type: 'inventario',
+        title: 'Alerta de stock crítico',
+        description: `${stats.stockCritico} productos con bajo stock`,
+        timestamp: new Date(Date.now() - 1000 * 60 * 60),
+        status: 'error'
+      });
+    }
+    
+    if (stats.productosActivos > 0) {
+      activities.push({
+        id: '3',
+        type: 'producto',
+        title: 'Productos activos',
+        description: `${stats.productosActivos} productos en el sistema`,
+        timestamp: new Date(Date.now() - 1000 * 60 * 60 * 2),
+        status: 'success'
+      });
+    }
+    
+    return activities;
+  };
+
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    try {
+      const [productos, proveedores, bodegas, ordenes, stockCritico, ordenesPendientes] = await Promise.all([
+        productoService.getAll(),
+        proveedorService.getAll(),
+        inventarioService.getAllBodegas(),
+        ordenCompraService.getAll(),
+        inventarioService.getStockCritico(),
+        ordenCompraService.getPendientes(),
+      ]);
+
+      setStats({
+        totalProductos: productos.length,
+        totalProveedores: proveedores.length,
+        totalBodegas: bodegas.length,
+        totalOrdenes: ordenes.length,
+        stockCritico: stockCritico.length,
+        ordenesPendientes: ordenesPendientes.length,
+        productosActivos: productos.filter(p => p.estado === 'ACTIVO').length,
+        proveedoresActivos: proveedores.filter(p => p.estado === 'ACTIVO').length,
+        bodegasActivas: bodegas.length,
+      });
+    } catch (error) {
+      console.error('Error refreshing dashboard stats:', error);
+    } finally {
+      setRefreshing(false);
+    }
+  };
+
+  const getIconComponent = (iconName: string) => {
+    switch (iconName) {
+      case 'Add':
+        return <Add />;
+      case 'ShoppingCart':
+        return <ShoppingCart />;
+      case 'Inventory':
+        return <Inventory />;
+      case 'Business':
+        return <Business />;
+      default:
+        return <Add />;
+    }
+  };
+
+  const quickActions: QuickAction[] = [
     {
-      title: 'Total Productos',
-      value: stats.totalProductos,
-      icon: <Inventory />,
+      title: 'Nuevo Producto',
+      description: 'Agregar un nuevo producto al inventario',
+      icon: 'Add',
       color: '#1976d2',
+      path: '/productos'
     },
     {
-      title: 'Total Proveedores',
-      value: stats.totalProveedores,
-      icon: <Business />,
+      title: 'Nueva Orden',
+      description: 'Crear una nueva orden de compra',
+      icon: 'ShoppingCart',
       color: '#2e7d32',
+      path: '/ordenes'
     },
     {
-      title: 'Total Bodegas',
-      value: stats.totalBodegas,
-      icon: <Warehouse />,
+      title: 'Ver Inventario',
+      description: 'Consultar el inventario actual',
+      icon: 'Inventory',
       color: '#ed6c02',
+      path: '/inventario'
     },
     {
-      title: 'Total Órdenes',
-      value: stats.totalOrdenes,
-      icon: <ShoppingCart />,
+      title: 'Ver Proveedores',
+      description: 'Gestionar proveedores',
+      icon: 'Business',
       color: '#9c27b0',
+      path: '/proveedores'
     },
   ];
+
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
 
   useEffect(() => {
     const loadStats = async () => {
@@ -87,7 +304,13 @@ const DashboardPage: React.FC = () => {
           totalOrdenes: ordenes.length,
           stockCritico: stockCritico.length,
           ordenesPendientes: ordenesPendientes.length,
+          productosActivos: productos.filter(p => p.estado === 'ACTIVO').length,
+          proveedoresActivos: proveedores.filter(p => p.estado === 'ACTIVO').length,
+          bodegasActivas: bodegas.length,
         });
+        setLastUpdate(new Date());
+        updateChartData();
+        setRecentActivity(generateRecentActivity());
       } catch (error) {
         console.error('Error loading dashboard stats:', error);
       } finally {
@@ -98,22 +321,54 @@ const DashboardPage: React.FC = () => {
     loadStats();
   }, []);
 
+  useEffect(() => {
+    if (!autoRefresh) return;
+    
+    const interval = setInterval(() => {
+      handleRefresh();
+    }, 30000);
+
+    return () => clearInterval(interval);
+  }, [autoRefresh]);
+
   if (loading) {
     return (
-      <Box display="flex" justifyContent="center" alignItems="center" minHeight="60vh">
-        <CircularProgress />
+      <Box sx={{ width: '100%', p: 3 }}>
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <Skeleton variant="text" width={200} height={40} sx={{ mb: 2 }} />
+          <Skeleton variant="text" width={400} height={20} sx={{ mb: 4 }} />
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 3 }}>
+            {[1, 2, 3, 4].map((item) => (
+              <Box key={item} sx={{ flex: { xs: '1 1 100%', sm: '1 1 calc(50% - 12px)', md: '1 1 calc(25% - 18px)' } }}>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.3, delay: item * 0.1 }}
+                >
+                  <Skeleton variant="rectangular" height={120} sx={{ borderRadius: 2 }} />
+                </motion.div>
+              </Box>
+            ))}
+          </Box>
+        </motion.div>
       </Box>
     );
   }
 
   return (
-    <Box>
-      <Typography variant="h4" gutterBottom>
-        Dashboard
-      </Typography>
-      <Typography variant="body1" color="text.secondary" gutterBottom>
-        Vista general del sistema de gestión de inventario
-      </Typography>
+    <Box sx={{ width: '100%', p: 3 }}>
+      <Box sx={{ mb: 3 }}>
+        <Typography variant="h4" gutterBottom sx={{ fontWeight: 600 }}>
+          📊 Dashboard
+        </Typography>
+        <Typography variant="body1" color="text.secondary">
+          Vista general del sistema de gestión de inventario distribuido
+        </Typography>
+      </Box>
 
       {/* Tarjetas de estadísticas */}
       <Box 
@@ -298,6 +553,39 @@ const DashboardPage: React.FC = () => {
               </ListItem>
             </List>
           </Paper>
+        </Box>
+      </Box>
+
+      {/* Acciones Rápidas */}
+      <Box sx={{ mt: 4 }}>
+        <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
+          Acciones Rápidas
+        </Typography>
+        <Box 
+          sx={{ 
+            display: 'flex', 
+            flexWrap: 'wrap', 
+            gap: 2 
+          }}
+        >
+          {quickActions.map((action, index) => (
+            <Button
+              key={index}
+              variant="outlined"
+              startIcon={getIconComponent(action.icon)}
+              onClick={() => handleQuickAction(action.path)}
+              sx={{
+                borderColor: action.color,
+                color: action.color,
+                '&:hover': {
+                  borderColor: action.color,
+                  backgroundColor: alpha(action.color, 0.04),
+                },
+              }}
+            >
+              {action.title}
+            </Button>
+          ))}
         </Box>
       </Box>
     </Box>
